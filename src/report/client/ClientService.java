@@ -1,6 +1,6 @@
 package report.client;
 
-import report.daoImpl.ReportDaoImpl;
+import report.daoimpl.ReportDaoImpl;
 
 public class ClientService {
 	public static void main(String[] args) {

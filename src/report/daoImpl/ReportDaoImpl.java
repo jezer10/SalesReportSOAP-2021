@@ -1,10 +1,9 @@
-package report.daoImpl;
+package report.daoimpl;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
-import java.util.Iterator;
 
 import javax.jws.WebService;
 
@@ -21,7 +20,7 @@ public class ReportDaoImpl implements ReportDao {
 	private Connection cx;
 
 	@Override
-	public String generateReport(String initialDate, String endDate, int idClient) {
+	public Reporte generateReport(String initialDate, String endDate, int idClient) {
 		int currentId=0;
 		int nextId=0;
 		Reporte report = new Reporte();
@@ -34,10 +33,10 @@ public class ReportDaoImpl implements ReportDao {
 			rs = ps.executeQuery();
 			rsmd=rs.getMetaData();
 			System.out.println(rsmd.getColumnCount());
+			Venta venta= new Venta();
 			while (rs.next()) {
 				nextId=rs.getInt("idventa");
 				if(nextId!=currentId) {
-					Venta venta= new Venta();
 					venta.idventa=nextId;
 					venta.fecha=rs.getString("fecha");
 					venta.empleado=rs.getString("empleado");
@@ -67,7 +66,7 @@ public class ReportDaoImpl implements ReportDao {
 		for (int i = 0; i < report.ventas.size(); i++) {
 			System.out.println(report.ventas.get(i).empleado);
 		}
-		return null;
+		return report;
 	}
 
 	@Override
